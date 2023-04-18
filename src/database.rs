@@ -195,10 +195,6 @@ impl Database {
                 }
             }
 
-            // if query.filter.value.as_bytes() > value {
-            //     continue;
-            // }
-
             let page = self.get_page(left_child_page - 1)?;
             self.read_index(&page, query, results)?;
         }
@@ -277,8 +273,8 @@ impl Database {
             };
 
             let split_at = ids.split_at(ids.partition_point(|id| *id < key as i64));
-            let left_ids = split_at.0; // Ids to the left
-            ids = split_at.1; // Ids to the right
+            let left_ids = split_at.0; 
+            ids = split_at.1;
 
             if !left_ids.is_empty() {
                 let page = self.get_page(left_child_page - 1)?;
@@ -286,7 +282,6 @@ impl Database {
             }
         }
 
-        // No more ids to the right. We're done.
         if ids.len() == 0 {
             return Ok(());
         }

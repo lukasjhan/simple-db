@@ -10,7 +10,6 @@ use anyhow::Result;
 #[derive(Debug)]
 pub struct SchemaStore {
     pub tables: HashMap<String, Table>,
-    // the tests care about the order of the tables
     pub table_names: Vec<String>,
 }
 
@@ -39,10 +38,6 @@ impl SchemaStore {
             }
         }
 
-        // Loop twice even if a little inefficient. This simply insures that all the tables are
-        // created before the indexes are created.
-        // Since the amount of tables in a typical database is small, this isn't a problem.
-        // (also this is an exercise in learning rust, not a production ready database)
         for row in schema_table.rows.iter() {
             let (_, sql) = sql::parse_create(row.sql.as_bytes())
                 .map_err(|_e| anyhow::anyhow!("Failed to parse table definition"))?;

@@ -182,15 +182,15 @@ pub fn parse_index_creation(input: &[u8]) -> IResult<&[u8], CreateIndexStatement
           tag_no_case("index"),
           multispace1,
           opt(tuple((tag_no_case("IF NOT EXISTS"), multispace1))),
-          identifier, // index name
+          identifier,
           multispace1,
           tag_no_case("ON"),
           multispace1,
-          identifier, // table
+          identifier,
           multispace0,
           tag("("),
           multispace0,
-          many1(identifier), // columns
+          many1(identifier),
           multispace0,
           tag(")"),
           opt(tag(";")),
@@ -252,7 +252,7 @@ fn column_constraint(input: &[u8]) -> IResult<&[u8], Option<ColumnConstraint>> {
 fn field_specification(input: &[u8]) -> IResult<&[u8], Field> {
   let (remaining_input, (column, ty, constraints, _)) = tuple((
       identifier,
-      opt(delimited(multispace0, identifier, multispace0)), // type
+      opt(delimited(multispace0, identifier, multispace0)),
       many0(column_constraint),
       opt(delimited(multispace0, tag(","), multispace0)),
   ))(input)?;

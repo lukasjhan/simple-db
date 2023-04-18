@@ -128,8 +128,6 @@ impl<'page> Record<'page> {
         cursor += offset;
 
         let mut remaining_bytes = header_size as usize - offset;
-
-        // Most headers are 1 byte, but some are 2 bytes, rarely 3/4
         let mut columns = Vec::with_capacity(remaining_bytes);
 
         while remaining_bytes > 0 {

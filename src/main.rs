@@ -6,7 +6,6 @@ use simple_sqlite::sql;
 use crate::{database::Database};
 
 fn main() -> Result<()> {
-    // Parse arguments
     let args = std::env::args().collect::<Vec<_>>();
     match args.len() {
         0 | 1 => bail!("Missing <database path> and <command>"),
@@ -16,7 +15,6 @@ fn main() -> Result<()> {
 
     let mut database = Database::open(&args[2])?;
 
-    // Parse command and act accordingly
     let command = &args[2];
     match command.as_str() {
         ".dbinfo" => {
